@@ -1,0 +1,50 @@
+name: Terraform Validate and Plan
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "ha3tier.3/github_iac/**"
+      - ".github/workflows/terraform-plan.yml"
+
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: read
+
+jobs:
+  terraform:
+    name: Terraform Validate and Plan
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ha3tier.3/environments/dev
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive ../..
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -no-color
