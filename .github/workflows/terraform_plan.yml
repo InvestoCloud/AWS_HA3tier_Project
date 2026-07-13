@@ -22,10 +22,10 @@ jobs:
   terraform:
     name: Terraform Validate and Plan
     env:
-        db_name: ${{ secrets.DB_NAME }}
-        db_secret_name: ${{ secrets.DB_SECRET_NAME }}
-        domain_name: ${{ secrets.DOMAIN_NAME }}
-        hosted_zone_name: ${{ secrets.HOSTED_ZONE_NAME }}
+        var.db_name: ${{ secrets.DB_NAME }}
+        var.db_secret_name: ${{ secrets.DB_SECRET_NAME }}
+        var.domain_name: ${{ secrets.DOMAIN_NAME }}
+        var.hosted_zone_name: ${{ secrets.HOSTED_ZONE_NAME }}
 
     runs-on: ubuntu-latest
 
@@ -60,4 +60,3 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -no-color
-        
