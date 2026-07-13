@@ -92,7 +92,8 @@ resource "aws_iam_policy" "terraform_backend_access" {
           StringLike = {
             "s3:prefix" = [
               var.terraform_state_key,
-              "${var.terraform_state_key}.tflock"
+              "${var.terraform_state_key}.tflock",
+              "ha3tier-3/dev/*"
             ]
           }
         }
