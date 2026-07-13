@@ -21,6 +21,12 @@ permissions:
 jobs:
   terraform:
     name: Terraform Validate and Plan
+    env:
+        db_name: ${{ secrets.DB_NAME }}
+        db_secret_name: ${{ secrets.DB_SECRET_NAME }}
+        domain_name: ${{ secrets.DOMAIN_NAME }}
+        hosted_zone_name: ${{ secrets.HOSTED_ZONE_NAME }}
+
     runs-on: ubuntu-latest
 
     defaults:
@@ -44,7 +50,7 @@ jobs:
          terraform_version: 1.14.8
 
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -input=false
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive ../..
@@ -53,4 +59,4 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -no-color
+        run: terraform plan -no-color -input=false
