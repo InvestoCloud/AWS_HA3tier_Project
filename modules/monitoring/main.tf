@@ -21,13 +21,13 @@ resource "aws_cloudwatch_metric_alarm" "ec2_high_cpu" {
   alarm_description   = "Triggers when average EC2 CPU across the Auto Scaling Group is above ${var.ec2_cpu_alarm_threshold}%."
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 2
-  datapoints_to_alarm  = 2
-  metric_name          = "CPUUtilization"
-  namespace            = "AWS/EC2"
-  period               = 60
-  statistic            = "Average"
-  threshold            = var.ec2_cpu_alarm_threshold
-  treat_missing_data   = "missing"
+  datapoints_to_alarm = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 60
+  statistic           = "Average"
+  threshold           = var.ec2_cpu_alarm_threshold
+  treat_missing_data  = "missing"
 
   dimensions = {
     AutoScalingGroupName = var.asg_name
@@ -47,13 +47,13 @@ resource "aws_cloudwatch_metric_alarm" "alb_5xx" {
   alarm_description   = "Triggers when the ALB generates 5XX errors."
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
-  datapoints_to_alarm  = 1
-  metric_name          = "HTTPCode_ELB_5XX_Count"
-  namespace            = "AWS/ApplicationELB"
-  period               = 60
-  statistic            = "Sum"
-  threshold            = var.alb_5xx_alarm_threshold
-  treat_missing_data   = "notBreaching"
+  datapoints_to_alarm = 1
+  metric_name         = "HTTPCode_ELB_5XX_Count"
+  namespace           = "AWS/ApplicationELB"
+  period              = 60
+  statistic           = "Sum"
+  threshold           = var.alb_5xx_alarm_threshold
+  treat_missing_data  = "notBreaching"
 
   dimensions = {
     LoadBalancer = var.alb_arn_suffix
@@ -73,13 +73,13 @@ resource "aws_cloudwatch_metric_alarm" "unhealthy_targets" {
   alarm_description   = "Triggers when one or more ALB targets are unhealthy."
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
-  datapoints_to_alarm  = 2
-  metric_name          = "UnHealthyHostCount"
-  namespace            = "AWS/ApplicationELB"
-  period               = 60
-  statistic            = "Maximum"
-  threshold            = var.unhealthy_host_threshold
-  treat_missing_data   = "notBreaching"
+  datapoints_to_alarm = 2
+  metric_name         = "UnHealthyHostCount"
+  namespace           = "AWS/ApplicationELB"
+  period              = 60
+  statistic           = "Maximum"
+  threshold           = var.unhealthy_host_threshold
+  treat_missing_data  = "notBreaching"
 
   dimensions = {
     LoadBalancer = var.alb_arn_suffix
@@ -100,13 +100,13 @@ resource "aws_cloudwatch_metric_alarm" "rds_high_cpu" {
   alarm_description   = "Triggers when RDS CPU utilization is above ${var.rds_cpu_alarm_threshold}%."
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 2
-  datapoints_to_alarm  = 2
-  metric_name          = "CPUUtilization"
-  namespace            = "AWS/RDS"
-  period               = 300
-  statistic            = "Average"
-  threshold            = var.rds_cpu_alarm_threshold
-  treat_missing_data   = "missing"
+  datapoints_to_alarm = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/RDS"
+  period              = 300
+  statistic           = "Average"
+  threshold           = var.rds_cpu_alarm_threshold
+  treat_missing_data  = "missing"
 
   dimensions = {
     DBInstanceIdentifier = var.db_identifier
@@ -126,13 +126,13 @@ resource "aws_cloudwatch_metric_alarm" "rds_low_storage" {
   alarm_description   = "Triggers when RDS free storage drops below the configured threshold."
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = 1
-  datapoints_to_alarm  = 1
-  metric_name          = "FreeStorageSpace"
-  namespace            = "AWS/RDS"
-  period               = 300
-  statistic            = "Average"
-  threshold            = var.rds_free_storage_threshold_bytes
-  treat_missing_data   = "missing"
+  datapoints_to_alarm = 1
+  metric_name         = "FreeStorageSpace"
+  namespace           = "AWS/RDS"
+  period              = 300
+  statistic           = "Average"
+  threshold           = var.rds_free_storage_threshold_bytes
+  treat_missing_data  = "missing"
 
   dimensions = {
     DBInstanceIdentifier = var.db_identifier
