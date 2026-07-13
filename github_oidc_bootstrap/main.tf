@@ -91,21 +91,19 @@ resource "aws_iam_policy" "terraform_backend_access" {
         Condition = {
           StringLike = {
             "s3:prefix" = [
-              var.terraform_state_key,
-              "${var.terraform_state_key}.tflock",
               "ha3tier-3/dev/*"
             ]
           }
         }
       },
       {
-        Sid    = "ReadTerraformState"
+        Sid    = "ReadTerraformStateAndLock"
         Effect = "Allow"
         Action = [
           "s3:GetObject"
         ]
         Resource = [
-          "arn:aws:s3:::${var.terraform_state_bucket}/${var.terraform_state_key}"
+          "arn:aws:s3:::${var.terraform_state_bucket}/ha3tier-3/dev/*"
         ]
       },
       {
@@ -117,7 +115,7 @@ resource "aws_iam_policy" "terraform_backend_access" {
           "s3:DeleteObject"
         ]
         Resource = [
-          "arn:aws:s3:::${var.terraform_state_bucket}/${var.terraform_state_key}.tflock"
+          "arn:aws:s3:::${var.terraform_state_bucket}/ha3tier-3/dev/*.tflock"
         ]
       }
     ]
