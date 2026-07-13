@@ -52,7 +52,8 @@ resource "aws_iam_role" "github_actions_terraform_plan" {
           StringLike = {
             "token.actions.githubusercontent.com:sub" = [
               "repo:${var.github_repo}:ref:refs/heads/main",
-              "repo:${var.github_repo}:pull_request"
+              "repo:${var.github_repo}:pull_request",
+              "repo:${var.github_repo}:ref:refs/heads/add-terraform-github-actions"
             ]
           }
         }
