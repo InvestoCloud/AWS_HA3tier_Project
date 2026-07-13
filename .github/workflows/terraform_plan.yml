@@ -59,4 +59,5 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -no-color -input=false
+        run: terraform plan -no-color
+        
