@@ -24,11 +24,11 @@ on:
   workflow_dispatch:
 
 env:
-  TF_VAR_db_name: ${{ secrets.DB_NAME }}
-  TF_VAR_db_secret_name: ${{ secrets.DB_SECRET_NAME }}
-  TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-  TF_VAR_hosted_zone_name: ${{ secrets.HOSTED_ZONE_NAME }}
-  TF_VAR_notification_email: ${{ secrets.NOTIFICATION_EMAIL }}
+  TF_VAR_db_name: ${{ vars.DB_NAME }}
+  TF_VAR_db_secret_name: ${{ vars.DB_SECRET_NAME }}
+  TF_VAR_domain_name: ${{ vars.DOMAIN_NAME }}
+  TF_VAR_hosted_zone_name: ${{ vars.HOSTED_ZONE_NAME }}
+  TF_VAR_notification_email: ${{ vars.NOTIFICATION_EMAIL }}
 
 permissions:
   id-token: write
@@ -83,4 +83,3 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -no-color -input=false
-        
